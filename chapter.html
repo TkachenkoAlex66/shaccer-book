@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ chapter.title }} — Руководство SHACCER</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #0a0a12 0%, #1a0a2e 50%, #0d0221 100%);
+            color: #e0e0ff;
+            min-height: 100vh;
+            line-height: 1.7;
+        }
+        
+        .header {
+            background: rgba(15, 5, 30, 0.9);
+            border-bottom: 1px solid rgba(138, 43, 226, 0.3);
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+        }
+        
+        .header-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            font-weight: 700;
+            color: #c4b5fd;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .nav a {
+            color: #a78bfa;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+        }
+        
+        .nav a:hover {
+            background: rgba(138, 43, 226, 0.25);
+            border-color: rgba(167, 139, 250, 0.4);
+            color: #fff;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px 80px;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #ddd6fe;
+            border-bottom: 2px solid rgba(138, 43, 226, 0.4);
+            padding-bottom: 15px;
+        }
+        
+        .content {
+            background: rgba(20, 10, 40, 0.6);
+            border: 1px solid rgba(138, 43, 226, 0.25);
+            border-radius: 16px;
+            padding: 35px;
+            white-space: pre-wrap;
+            font-size: 1.05rem;
+            line-height: 1.75;
+            color: #e8e0ff;
+        }
+        
+        .content h2, .content h3 {
+            color: #c4b5fd;
+            margin: 25px 0 12px;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .pagination a {
+            display: inline-block;
+            padding: 12px 22px;
+            background: linear-gradient(135deg, #7c3aed, #5b21b6);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 500;
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+        }
+        
+        .pagination a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.5);
+        }
+        
+        .pagination .disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        
+        .back-home {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .back-home a {
+            color: #a78bfa;
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+        
+        .back-home a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 600px) {
+            h1 { font-size: 1.4rem; }
+            .content { padding: 22px; font-size: 1rem; }
+            .header-inner { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-inner">
+            <a href="/" class="logo">SHACCER Guide</a>
+            <div class="nav">
+                <a href="/">Содержание</a>
+                {% if num > 0 %}
+                <a href="/chapter/{{ num - 1 }}">← Назад</a>
+                {% endif %}
+                {% if num < total - 1 %}
+                <a href="/chapter/{{ num + 1 }}">Вперёд →</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h1>{{ chapter.title }}</h1>
+        
+        <div class="content">{{ chapter.content }}</div>
+        
+        <div class="pagination">
+            {% if num > 0 %}
+            <a href="/chapter/{{ num - 1 }}">← Предыдущая глава</a>
+            {% else %}
+            <span></span>
+            {% endif %}
+            
+            {% if num < total - 1 %}
+            <a href="/chapter/{{ num + 1 }}">Следующая глава →</a>
+            {% endif %}
+        </div>
+        
+        <div class="back-home">
+            <a href="/">← Вернуться к содержанию</a>
+        </div>
+    </div>
+</body>
+</html>
